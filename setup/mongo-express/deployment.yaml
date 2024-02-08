@@ -1,3 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb-express-service
+  namespace: medhead
+spec:
+  type: LoadBalancer
+  selector:
+    app: mongodb-express-app
+  ports:
+    - protocol: TCP
+      port: 8081
+      targetPort: 8081
+      nodePort: 30000
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -17,7 +32,7 @@ spec:
     spec:
       containers:
         - name: mongodb-express-app
-          image: mongo-express
+          image: mongo-express:latest
           ports:
             - containerPort: 8081
           env:
@@ -36,18 +51,3 @@ spec:
                 configMapKeyRef:
                   name: mongo-config
                   key: mongo-url
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mongodb-express-service
-  namespace: medhead
-spec:
-  type: NodePort
-  selector:
-    app: mongodb-express-app
-  ports:
-    - protocol: TCP
-      port: 8081
-      targetPort: 8081
-      nodePort: 30000
