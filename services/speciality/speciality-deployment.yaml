@@ -15,7 +15,7 @@ spec:
         app: speciality-app
     spec:
       containers:
-        - name: speciality-service
+        - name: speciality-app
           image: samirguemri/speciality-service:latest
           ports:
             - containerPort: 9443
