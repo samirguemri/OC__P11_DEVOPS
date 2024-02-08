@@ -37,7 +37,6 @@ spec:
                   key: mongo-url
 
 ---
-
 apiVersion: v1
 kind: Service
 metadata:
@@ -50,4 +49,4 @@ spec:
     - protocol: TCP
       port: 9443
       targetPort: 9443
-      nodePort: 30100
+      nodePort: 31100
