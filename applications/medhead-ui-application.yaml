@@ -1,14 +1,20 @@
-project: default
-source:
-  repoURL: "https://github.com/samirguemri/OC__P11_DEVOPS.git"
-  path: ui/medhead
-  targetRevision: HEAD
-destination:
-  server: "https://kubernetes.default.svc"
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: medhead-ui-application
   namespace: medhead
-syncPolicy:
-  automated:
-    prune: true
-    selfHeal: true
-  syncOptions:
-    - CreateNamespace=true
+spec:
+  project: default
+  source:
+    repoURL: "https://github.com/samirguemri/OC__P11_DEVOPS.git"
+    path: ui/medhead
+    targetRevision: HEAD
+  destination:
+    server: "https://kubernetes.default.svc"
+    namespace: medhead
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true
