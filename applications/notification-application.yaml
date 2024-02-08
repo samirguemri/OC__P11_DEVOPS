@@ -1,0 +1,14 @@
+project: default
+source:
+  repoURL: "https://github.com/samirguemri/OC__P11_DEVOPS.git"
+  path: services/notification
+  targetRevision: HEAD
+destination:
+  server: "https://kubernetes.default.svc"
+  namespace: medhead
+syncPolicy:
+  automated:
+    prune: true
+    selfHeal: true
+  syncOptions:
+    - CreateNamespace=true
