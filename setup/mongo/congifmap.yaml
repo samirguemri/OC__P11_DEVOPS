@@ -4,4 +4,4 @@ metadata:
   name: mongo-config
   namespace: medhead
 data:
-  mongo-url: mongo-service
+  mongo-url: mongodb-service
