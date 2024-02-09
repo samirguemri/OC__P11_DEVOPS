@@ -14,12 +14,12 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb-statefulset
+  name: mongodb-deployment #statefulset
 spec:
   selector:
     matchLabels:
       app: mongodb-app
-  serviceName: "mongodb-app"
+  #serviceName: "mongodb-app"
   replicas: 1
   template:
     metadata:
@@ -37,13 +37,9 @@ spec:
             - name: MONGO_INITDB_ROOT_PASSWORD
               value: rootpass
           volumeMounts:
-            - name: data
+            - name: "mongo-data-dir"
               mountPath: /data/db
-  volumeClaimTemplates:
-    - metadata:
-        name: data
-      spec:
-        accessModes: ["ReadWriteOnce"]
-        resources:
-          requests:
-            storage: 1Gi
+    volumes:
+      - name: "mongo-data-dir"
+        persistentVolumeClaim:
+          claimName: "mongo-data"
