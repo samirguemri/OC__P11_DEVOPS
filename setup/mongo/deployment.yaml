@@ -40,7 +40,7 @@ spec:
           volumeMounts:
             - name: "mongo-data-dir"
               mountPath: /data/db
-    volumes:
-      - name: "mongo-data-dir"
-        persistentVolumeClaim:
-          claimName: "mongo-data"
+    # volumes:
+    #   - name: "mongo-data-dir"
+    #     persistentVolumeClaim:
+    #       claimName: "mongo-data"
