@@ -4,13 +4,14 @@ metadata:
   name: speciality-service
   namespace: medhead
 spec:
+  type: NodePort
   selector:
     app: speciality-app
   ports:
     - protocol: TCP
       port: 9443
       targetPort: 9443
-      # nodePort: 31800
+      nodePort: 31800
 ---
 apiVersion: apps/v1
 kind: Deployment
@@ -20,7 +21,7 @@ metadata:
   labels:
     app: speciality-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: speciality-app
