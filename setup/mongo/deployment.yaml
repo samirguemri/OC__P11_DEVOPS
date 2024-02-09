@@ -34,9 +34,17 @@ spec:
             - containerPort: 27017
           env:
             - name: MONGO_INITDB_ROOT_USERNAME
-              value: rootuser
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-user
             - name: MONGO_INITDB_ROOT_PASSWORD
-              value: rootpass
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-password
+            - name: ME_CONFIG_MONGODB_ENABLE_ADMIN
+              value: true
           volumeMounts:
             - name: "mongo-data-dir"
               mountPath: /data/db
