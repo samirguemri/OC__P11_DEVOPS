@@ -1,11 +1,11 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: hospital-service
+  name: hospital
   namespace: medhead
 spec:
   selector:
-    app: hospital-app
+    app: hospital
   ports:
     - protocol: TCP
       port: 8000
@@ -15,22 +15,22 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: hospital-deployment
+  name: hospital
   namespace: medhead
   labels:
-    app: hospital-app
+    app: hospital
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: hospital-app
+      app: hospital
   template:
     metadata:
       labels:
-        app: hospital-app
+        app: hospital
     spec:
       containers:
-        - name: hospital-app
+        - name: hospital
           image: samirguemri/hospital-service:latest
           ports:
             - containerPort: 8000

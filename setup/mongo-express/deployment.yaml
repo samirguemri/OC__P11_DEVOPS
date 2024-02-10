@@ -1,12 +1,12 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: mongodb-express-service
+  name: mongodb-express
   namespace: medhead
 spec:
   type: NodePort
   selector:
-    app: mongodb-express-app
+    app: mongodb-express
   ports:
     - protocol: TCP
       port: 8081
@@ -16,29 +16,38 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: mongodb-express-deployment
+  name: mongodb-express
   namespace: medhead
   labels:
-    app: mongodb-express-app
+    app: mongodb-express
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: mongodb-express-app
+      app: mongodb-express
   template:
     metadata:
       labels:
-        app: mongodb-express-app
+        app: mongodb-express
     spec:
       containers:
-        - name: mongodb-express-app
+        - name: mongodb-express
           image: mongo-express:latest
           ports:
             - containerPort: 8081
           env:
             - name: ME_CONFIG_MONGODB_ADMINUSERNAME
-              value: rootuser
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-user
             - name: ME_CONFIG_MONGODB_ADMINPASSWORD
-              value: rootpass
+              valueFrom:
+                secretKeyRef:
+                  name: mongo-secret
+                  key: mongo-password
             - name: ME_CONFIG_MONGODB_SERVER
-              value: mongodb-service
+              valueFrom:
+                configMapKeyRef:
+                  name: mongo-config
+                  key: mongo-url
